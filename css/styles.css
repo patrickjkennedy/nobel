@@ -1,0 +1,35 @@
+:root {
+  --main-bg-color: #FEF5EF;
+  --text-color: #141414;
+  --tuscan-gold: #F1D9A7;
+  --khaki: #C6B89E;
+  --grain-yellow: #F4D35E;
+  --tuscan-red: #764248;
+}
+
+body {
+  background-color: var(--main-bg-color); 
+  color: var(--text-color); 
+  font-family: sans-serif;
+  margin: 0;
+}
+
+p {
+  text-align: center;
+}
+
+h1 {
+  font-size: 50px;
+  color: var(--tuscan-red); 
+}
+
+footer {
+  background-color: var(--tuscan-red);
+  color: var(--main-bg-color);
+  padding: 20px;
+  text-align: center;
+}
+
+#laureatesTable {
+	display: none;
+}

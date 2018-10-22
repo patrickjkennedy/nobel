@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="css/styles.css">
+      <title>Nobel Prizewinner Database</title>
+    </head>
+  
+    <body>
+		
+		<h1>Nobel Laureates Internet Database</h1>
+		
+		<h2>Please enter your search criteria below</h2>
+		
+		<form onsubmit="return false">
+			<fieldset>
+				<legend>Search Criteria</legend>
+    			Start Year:<br>
+    			<input type="text" id="startyear" required><br>
+    			End Year:<br>
+    			<input type="text" id="endyear" required><br>
+				Categories:
+				<select id ="categories" name="categories">
+					<option value="all">-</option>
+					<option value="physics">Physics</option>
+					<option value="chemistry">Chemistry</option>
+					<option value="medicine">Medicine</option>
+					<option value="peace">Peace</option>
+					<option value="economics">Economics</option>
+				</select><br>
+    			<input type="submit" value="Submit" onclick="displayResults()">
+			</fieldset>
+  		</form>
+		
+		<div id="laureatesTable"/>
+      
+        <footer> 
+          <p>Made with <span aria-hidden="true">&hearts;</span> by Patrick Kennedy for UCD H.Dip Computer Science Web Application Development Assignment 2</p>
+        </footer>
+    
+    <script>
+    	var xmlhttp = new XMLHttpRequest();
+        var url = "data.json";
+		
+		// Form parameters that will get passed to displayLaureatesData.
+		var startyear = document.getElementById("startyear").value;
+		var endyear = document.getElementById("endyear").value;
+		var prizeCategory = document.getElementById("categories").value;
+        
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+                //Parse the JSON data to a JavaScript variable. 
+                var parsedObj = JSON.parse(xmlhttp.responseText);    
+                // This function is defined below and deals with the JSON data read from the file. 
+                displayLaureatesData(parsedObj); 
+            }
+        };
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+        
+        function displayLaureatesData(obj, start, end, category){
+			
+        	var laureatesArray = obj.laureates;
+			
+			var laureatesInfo = "<table>";
+			laureatesInfo += "<tr><th>Name</th><th>Category</th><th>Year of Award</th></tr>";
+			
+			for(var i = 0; i < laureatesArray.length; i++){
+        		var firstname = laureatesArray[i].firstname;
+        		var surname = laureatesArray[i].surname;
+        		laureatesInfo += "<tr><td>" + firstname + " " + surname + "</td>";
+				var prizeCategories = [];
+				var prizeYears = [];
+				for(var j = 0; j < laureatesArray[i].prizes.length; j++){
+					prizeCategories.push(laureatesArray[i].prizes[j].category);
+					prizeYears.push(laureatesArray[i].prizes[j].year);
+				}
+				laureatesInfo += "<td>" + prizeCategories.join(', ') + "</td>";
+				laureatesInfo += "<td>" + prizeYears.join(', ') + "</td></tr>";
+    		}
+
+    		laureatesInfo += "</table>"
+    		document.getElementById("laureatesTable").innerHTML = laureatesInfo;
+			
+        }
+
+    </script>
+      
+    </body>
+  
+</html>
