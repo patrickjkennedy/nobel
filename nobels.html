@@ -41,41 +41,48 @@
     <script>
     	var xmlhttp = new XMLHttpRequest();
         var url = "data.json";
-		
-		// Form parameters that will get passed to displayLaureatesData.
-		var startyear = document.getElementById("startyear").value;
-		var endyear = document.getElementById("endyear").value;
-		var prizeCategory = document.getElementById("categories").value;
         
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-                //Parse the JSON data to a JavaScript variable. 
-                var parsedObj = JSON.parse(xmlhttp.responseText);    
-                // This function is defined below and deals with the JSON data read from the file. 
-                displayLaureatesData(parsedObj); 
+                //Parse the JSON data to a global JavaScript variable. 
+                parsedObj = JSON.parse(xmlhttp.responseText);
             }
         };
 
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
         
-        function displayLaureatesData(obj, start, end, category){
+        function getLaureatesData(obj, startYear = "1901", endYear = "2018"){
 			
         	var laureatesArray = obj.laureates;
+			var startYearInt = parseInt(startYear);
+			var endYearInt = parseInt(endYear);
 			
+			var matches = [];
+			
+			// We need to filter our results by year
+			for(var i = 0; i < laureatesArray.length; i++){
+				for(var j = 0; j < laureatesArray[i].prizes.length; j++){
+					var prizeYearInt = parseInt(laureatesArray[i].prizes[j].year);
+					if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt) {
+						matches.push(laureatesArray[i]);
+					}
+				}
+			};
+									
 			var laureatesInfo = "<table>";
 			laureatesInfo += "<tr><th>Name</th><th>Category</th><th>Year of Award</th></tr>";
 			
-			for(var i = 0; i < laureatesArray.length; i++){
-        		var firstname = laureatesArray[i].firstname;
-        		var surname = laureatesArray[i].surname;
+			for(var i = 0; i < matches.length; i++){
+        		var firstname = matches[i].firstname;
+        		var surname = matches[i].surname;
         		laureatesInfo += "<tr><td>" + firstname + " " + surname + "</td>";
 				var prizeCategories = [];
 				var prizeYears = [];
-				for(var j = 0; j < laureatesArray[i].prizes.length; j++){
-					prizeCategories.push(laureatesArray[i].prizes[j].category);
-					prizeYears.push(laureatesArray[i].prizes[j].year);
+				for(var j = 0; j < matches[i].prizes.length; j++){
+					prizeCategories.push(matches[i].prizes[j].category);
+					prizeYears.push(matches[i].prizes[j].year);
 				}
 				laureatesInfo += "<td>" + prizeCategories.join(', ') + "</td>";
 				laureatesInfo += "<td>" + prizeYears.join(', ') + "</td></tr>";
@@ -85,7 +92,17 @@
     		document.getElementById("laureatesTable").innerHTML = laureatesInfo;
 			
         }
-
+		
+		function displayResults(){
+			// Form parameters that will get passed to getLaureatesData.
+			var startyear = document.getElementById("startyear").value;
+			var endyear = document.getElementById("endyear").value;
+			var prizeCategory = document.getElementById("categories").value;
+			
+			getLaureatesData(parsedObj, startyear, endyear);
+			
+		}
+		
     </script>
       
     </body>
