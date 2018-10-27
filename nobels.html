@@ -265,8 +265,9 @@
 					<option value="economics">Economics</option>
 				</select><br>
 				Country of Birth:<br>
-				<select id ="categories" name="categories">
+				<select id ="countries" name="countries">
 					<option value="all">-</option>
+					<option value="Ireland">Ireland</option>
 				</select><br>
     			<input type="submit" value="Submit" onclick="displayResults()">
 			</fieldset>
@@ -287,14 +288,13 @@
 
                 //Parse the JSON data to a global JavaScript variable. 
                 parsedObj = JSON.parse(xmlhttp.responseText);
-				console.log(parsedObj);
             }
         };
 
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
         
-        function getLaureatesData(obj, startYear, endYear, category){
+        function getLaureatesData(obj, startYear, endYear, category, country){
 			
         	var laureatesArray = obj.laureates;
 			var startYearInt = parseInt(startYear);
@@ -307,14 +307,22 @@
 				for(var j = 0; j < laureatesArray[i].prizes.length; j++){
 					var prizeYearInt = parseInt(laureatesArray[i].prizes[j].year);
 					var prizeCategory = laureatesArray[i].prizes[j].category;
-					if (category == "all"){
+					var laureateCountryOfBirth = laureatesArray[i].bornCountry;
+					if (category == "all" && country == 'all'){
 						if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt) {
 							matches.push(laureatesArray[i]);
 						}
 					}
-					else if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt && category == prizeCategory) {
-						matches.push(laureatesArray[i]);
-					} 
+					else if (category == "all"){
+						if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt && country == laureateCountryOfBirth) {
+							matches.push(laureatesArray[i]);
+						}
+					}
+					else if (country == "all"){
+						if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt && category == prizeCategory) {
+							matches.push(laureatesArray[i]);
+						} 
+					}
 				}
 			}
 									
@@ -345,8 +353,9 @@
 			var startyear = document.getElementById("startyear").value;
 			var endyear = document.getElementById("endyear").value;
 			var prizeCategory = document.getElementById("categories").value;
+			var countryOfBirth = document.getElementById("countries").value;
 			
-			getLaureatesData(parsedObj, startyear, endyear, prizeCategory);
+			getLaureatesData(parsedObj, startyear, endyear, prizeCategory, countryOfBirth);
 			
 		}
 		
