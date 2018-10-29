@@ -267,7 +267,81 @@
 				Country of Birth:<br>
 				<select id ="countries" name="countries">
 					<option value="all">-</option>
-					<option value="Ireland">Ireland</option>
+					<option value="DZ">Algeria</option>
+					<option value="AR">Argentina</option>
+					<option value="AU">Australia</option>
+					<option value="AT">Austria</option>
+					<option value="AZ">Azerbaijan</option>
+					<option value="BD">Bangladesh</option>
+					<option value="BY">Belarus</option>
+					<option value="BE">Belgium</option>
+					<option value="BA">Bosnia and Herzegovina</option>
+					<option value="BR">Brazil</option>
+					<option value="BG">Bulgaria</option>
+					<option value="CA">Canada</option>
+					<option value="CL">Chile</option>
+					<option value="CN">China</option>
+					<option value="CO">Colombia</option>
+					<option value="CR">Costa Rica</option>
+					<option value="HR">Croatia</option>
+					<option value="CY">Cyprus</option>
+					<option value="CZ">Czech Republic</option>
+					<option value="DK">Denmark</option>
+					<option value="TL">East Timor</option>
+					<option value="EG">Egypt</option>
+					<option value="FI">Finland</option>
+					<option value="FR">France</option>
+					<option value="DE">Germany</option>
+					<option value="GH">Ghana</option>
+					<option value="GR">Greece</option>
+					<option value="GP">Guadeloupe Island</option>
+					<option value="GT">Guatemala</option>
+					<option value="HU">Hungary</option>
+					<option value="IS">Iceland</option>
+					<option value="IN">India</option>
+					<option value="ID">Indonesia</option>
+					<option value="IR">Iran</option>
+					<option value="IE">Ireland</option>
+					<option value="IL">Israel</option>
+					<option value="IT">Italy</option>
+					<option value="JP">Japan</option>
+					<option value="KE">Kenya</option>
+					<option value="LV">Latvia</option>
+					<option value="LR">Liberia</option>
+					<option value="LT">Lithuania</option>
+					<option value="LU">Luxembourg</option>
+					<option value="MK">Macedonia</option>
+					<option value="MG">Madagascar</option>
+					<option value="MX">Mexico</option>
+					<option value="MA">Morocco</option>
+					<option value="MM">Myanmar</option>
+					<option value="NZ">New Zealand</option>
+					<option value="NG">Nigeria</option>
+					<option value="NO">Norway</option>
+					<option value="PK">Pakistan</option>
+					<option value="PE">Peru</option>
+					<option value="PL">Poland</option>
+					<option value="PT">Portugal</option>
+					<option value="RO">Romania</option>
+					<option value="RU">Russia</option>
+					<option value="LC">Saint Lucia</option>
+					<option value="SK">Slovakia</option>
+					<option value="SI">Slovenia</option>
+					<option value="ZA">South Africa</option>
+					<option value="KR">South Korea</option>
+					<option value="ES">Spain</option>
+					<option value="SE">Sweden</option>
+					<option value="CH">Switzerland</option>
+					<option value="TW">Taiwan</option>
+					<option value="NL">the Netherlands</option>
+					<option value="TR">Turkey</option>
+					<option value="UA">Ukraine</option>
+					<option value="GB">United Kingdom</option>
+					<option value="US">USA</option>
+					<option value="VE">Venezuela</option>
+					<option value="VN">Vietnam</option>
+					<option value="YE">Yemen</option>
+					<option value="ZW">Zimbabwe</option>
 				</select><br>
     			<input type="submit" value="Submit" onclick="displayResults()">
 			</fieldset>
@@ -294,7 +368,7 @@
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
         
-        function getLaureatesData(obj, startYear, endYear, category, country){
+        function getLaureatesData(obj, startYear, endYear, category, countryCode){
 			
         	var laureatesArray = obj.laureates;
 			var startYearInt = parseInt(startYear);
@@ -307,40 +381,44 @@
 				for(var j = 0; j < laureatesArray[i].prizes.length; j++){
 					var prizeYearInt = parseInt(laureatesArray[i].prizes[j].year);
 					var prizeCategory = laureatesArray[i].prizes[j].category;
-					var laureateCountryOfBirth = laureatesArray[i].bornCountry;
-					if (category == "all" && country == 'all'){
+					var laureateCountryCodeOfBirth = laureatesArray[i].bornCountryCode;
+					if (category == "all" && countryCode == 'all'){
 						if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt) {
 							matches.push(laureatesArray[i]);
+							break
 						}
 					}
 					else if (category == "all"){
-						if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt && country == laureateCountryOfBirth) {
+						if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt && countryCode == laureateCountryCodeOfBirth) {
 							matches.push(laureatesArray[i]);
+							break
 						}
 					}
-					else if (country == "all"){
+					else if (countryCode == "all"){
 						if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt && category == prizeCategory) {
 							matches.push(laureatesArray[i]);
+							break
 						} 
+					}
+					else if (prizeYearInt >= startYearInt && prizeYearInt <= endYearInt && category == prizeCategory && countryCode == laureateCountryCodeOfBirth) {
+						matches.push(laureatesArray[i]);
+						break
 					}
 				}
 			}
 									
 			var laureatesInfo = "<table>";
 			laureatesInfo += "<tr><th>Name</th><th>Category</th><th>Year of Award</th></tr>";
-			
+						
 			for(var i = 0; i < matches.length; i++){
-        		var firstname = matches[i].firstname;
-        		var surname = matches[i].surname;
-        		laureatesInfo += "<tr><td>" + firstname + " " + surname + "</td>";
-				var prizeCategories = [];
-				var prizeYears = [];
 				for(var j = 0; j < matches[i].prizes.length; j++){
-					prizeCategories.push(matches[i].prizes[j].category);
-					prizeYears.push(matches[i].prizes[j].year);
+					laureatesInfo += "<tr><td>" + matches[i].firstname + " ";
+					if (matches[i].surname != null){
+						laureatesInfo += matches[i].surname + "</td>";
+					}
+					laureatesInfo += "<td>" + matches[i].prizes[j].category + "</td>";
+					laureatesInfo += "<td>" + matches[i].prizes[j].year + "</td></tr>";
 				}
-				laureatesInfo += "<td>" + prizeCategories.join(', ') + "</td>";
-				laureatesInfo += "<td>" + prizeYears.join(', ') + "</td></tr>";
     		}
 
     		laureatesInfo += "</table>"
@@ -353,12 +431,12 @@
 			var startyear = document.getElementById("startyear").value;
 			var endyear = document.getElementById("endyear").value;
 			var prizeCategory = document.getElementById("categories").value;
-			var countryOfBirth = document.getElementById("countries").value;
+			var countryCodeOfBirth = document.getElementById("countries").value;
 			
-			getLaureatesData(parsedObj, startyear, endyear, prizeCategory, countryOfBirth);
+			getLaureatesData(parsedObj, startyear, endyear, prizeCategory, countryCodeOfBirth);
 			
 		}
-		
+				
     </script>
       
     </body>
