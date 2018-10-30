@@ -30,6 +30,6 @@ footer {
   text-align: center;
 }
 
-#laureatesTable {
-	display: block;
+#genderButtons {
+	display: none;
 }

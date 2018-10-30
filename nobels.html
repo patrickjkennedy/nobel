@@ -3,12 +3,12 @@
     <head>
       <meta charset="UTF-8">
       <link rel="stylesheet" href="css/styles.css">
-      <title>Nobel Laureates Internet Database</title>
+      <title>Nobel Laureate Internet Database</title>
     </head>
   
     <body>
 		
-		<h1>Nobel Laureates Internet Database</h1>
+		<h1>Nobel Laureate Internet Database</h1>
 		
 		<h2>Please enter your search criteria below</h2>
 		
@@ -347,6 +347,28 @@
 			</fieldset>
   		</form>
 		
+		<div id="genderButtons">
+			<form>
+    			<fieldset>
+        			<legend>Filter by Gender</legend>
+					<div>
+						<input type="radio" id="all" value="all" name="gender" onclick="showAllGenders()" checked />
+						<label for="all">All</label>
+					</div>
+
+					<div>
+						<input type="radio" id="male" value="male" name="gender" onclick="showMalesOnly()"/>
+						<label for="male">Male</label>
+					</div>
+
+					<div>
+						<input type="radio" id="female" value="female" name="gender" onclick="showFemalesOnly()"/>
+						<label for="female">Female</label>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		
 		<div id="laureatesTable"/>
       
         <footer> 
@@ -412,7 +434,8 @@
 						
 			for(var i = 0; i < matches.length; i++){
 				for(var j = 0; j < matches[i].prizes.length; j++){
-					laureatesInfo += "<tr><td>" + matches[i].firstname + " ";
+					laureatesInfo += "<tr class=\"" + matches[i].gender + "\">"
+					laureatesInfo += "<td>" + matches[i].firstname + " ";
 					if (matches[i].surname != null){
 						laureatesInfo += matches[i].surname + "</td>";
 					}
@@ -433,8 +456,69 @@
 			var prizeCategory = document.getElementById("categories").value;
 			var countryCodeOfBirth = document.getElementById("countries").value;
 			
+			// Fetch the results
 			getLaureatesData(parsedObj, startyear, endyear, prizeCategory, countryCodeOfBirth);
 			
+			// Display the radio buttons
+			document.getElementById("genderButtons").style.display = "block";
+		
+		}
+		
+		function showMalesOnly(){
+			// Hide the female and org genders, display male
+			var maleList = document.getElementsByClassName("male");
+			var femaleList = document.getElementsByClassName("female");
+			var orgList = document.getElementsByClassName("org");
+						
+			for (var i = 0; i < maleList.length; i++){
+				maleList[i].style.display = "table-row";
+			}
+			
+			for (i = 0; i < femaleList.length; i++){
+				femaleList[i].style.display = "none";
+			}
+			
+			for (i = 0; i < orgList.length; i++){
+				orgList[i].style.display = "none";
+			}
+		}
+		
+		function showFemalesOnly(){
+			// Hide the male and org genders, display female
+			var maleList = document.getElementsByClassName("male");
+			var femaleList = document.getElementsByClassName("female");
+			var orgList = document.getElementsByClassName("org");
+						
+			for (var i = 0; i < maleList.length; i++){
+				maleList[i].style.display = "none";
+			}
+			
+			for (i = 0; i < femaleList.length; i++){
+				femaleList[i].style.display = "table-row";
+			}
+			
+			for (i = 0; i < orgList.length; i++){
+				orgList[i].style.display = "none";
+			}
+		}
+		
+		function showAllGenders(){
+			// Show all genders
+			var maleList = document.getElementsByClassName("male");
+			var femaleList = document.getElementsByClassName("female");
+			var orgList = document.getElementsByClassName("org");
+						
+			for (var i = 0; i < maleList.length; i++){
+				maleList[i].style.display = "table-row";
+			}
+			
+			for (i = 0; i < femaleList.length; i++){
+				femaleList[i].style.display = "table-row";
+			}
+			
+			for (i = 0; i < orgList.length; i++){
+				orgList[i].style.display = "table-row";
+			}
 		}
 				
     </script>
