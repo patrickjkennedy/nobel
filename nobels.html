@@ -3,6 +3,8 @@
     <head>
       <meta charset="UTF-8">
       <link rel="stylesheet" href="css/styles.css">
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/solid.css" integrity="sha384-uKQOWcYZKOuKmpYpvT0xCFAs/wE157X5Ua3H5onoRAOCNkJAMX/6QF0iXGGQV9cP" crossorigin="anonymous">
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css" integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ" crossorigin="anonymous">
       <title>Nobel Laureate Internet Database</title>
     </head>
   
@@ -370,6 +372,9 @@
 		</div>
 		
 		<div id="laureatesTable"/>
+		
+		<!--https://www.w3schools.com/howto/howto_css_modals.asp -->
+		<div id="info_modal" class="modal"/>
       
         <footer> 
           <p>Made with <span aria-hidden="true">&hearts;</span> by Patrick Kennedy for UCD H.Dip Computer Science Web Application Development Assignment 2</p>
@@ -382,7 +387,7 @@
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-                //Parse the JSON data to a global JavaScript variable. 
+                //Parse the JSON data to a global JavaScript variable (global variable)
                 parsedObj = JSON.parse(xmlhttp.responseText);
             }
         };
@@ -396,7 +401,8 @@
 			var startYearInt = parseInt(startYear);
 			var endYearInt = parseInt(endYear);
 			
-			var matches = [];
+			// Laureates that match the requested search criteria (global variable)
+			matches = [];
 			
 			// We need to filter our results by the search criteria
 			for(var i = 0; i < laureatesArray.length; i++){
@@ -430,7 +436,7 @@
 			}
 									
 			var laureatesInfo = "<table>";
-			laureatesInfo += "<tr><th>Name</th><th>Category</th><th>Year of Award</th></tr>";
+			laureatesInfo += "<tr><th>Name</th><th>Category</th><th>Year of Award</th><th>Additional Info</th></tr>";
 						
 			for(var i = 0; i < matches.length; i++){
 				for(var j = 0; j < matches[i].prizes.length; j++){
@@ -440,7 +446,8 @@
 						laureatesInfo += matches[i].surname + "</td>";
 					}
 					laureatesInfo += "<td>" + matches[i].prizes[j].category + "</td>";
-					laureatesInfo += "<td>" + matches[i].prizes[j].year + "</td></tr>";
+					laureatesInfo += "<td>" + matches[i].prizes[j].year + "</td>";
+					laureatesInfo += "<td><button onclick=\"additionalInfo(" + matches[i].id + ")\"><span class=\"fas fa-info-circle\"></span></button></td></tr>";
 				}
     		}
 
@@ -519,6 +526,21 @@
 			for (i = 0; i < orgList.length; i++){
 				orgList[i].style.display = "table-row";
 			}
+		}
+		
+		function additionalInfo(laureate_id){
+			additionalLaureateInfo = {}
+			console.log(matches)
+			for (var i = 0; i < matches.length; i++){
+				if (matches[i].id == laureate_id){
+					additionalLaureateInfo = matches[i]
+				}
+			}
+			
+			console.log(additionalLaureateInfo.born)
+			console.log(additionalLaureateInfo.died)
+			console.log(additionalLaureateInfo.bornCity)
+			
 		}
 				
     </script>
