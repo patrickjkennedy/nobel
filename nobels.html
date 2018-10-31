@@ -367,14 +367,18 @@
 						<input type="radio" id="female" value="female" name="gender" onclick="showFemalesOnly()"/>
 						<label for="female">Female</label>
 					</div>
+					<div>
+						<input type="radio" id="org" value="org" name="gender" onclick="showOrganizationsOnly()"/>
+						<label for="org">Organizations</label>
+					</div>
 				</fieldset>
 			</form>
 		</div>
 		
-		<div id="laureatesTable"/>
+		<div id="laureatesTable"></div>
 		
 		<!--https://www.w3schools.com/howto/howto_css_modals.asp -->
-		<div id="info_modal" class="modal"/>
+		<div id="info-modal" class="modal"><div id="modal-content"></div></div>
       
         <footer> 
           <p>Made with <span aria-hidden="true">&hearts;</span> by Patrick Kennedy for UCD H.Dip Computer Science Web Application Development Assignment 2</p>
@@ -389,6 +393,8 @@
 
                 //Parse the JSON data to a global JavaScript variable (global variable)
                 parsedObj = JSON.parse(xmlhttp.responseText);
+				startYearDropdown();
+				endYearDropdown();
             }
         };
 
@@ -447,7 +453,7 @@
 					}
 					laureatesInfo += "<td>" + matches[i].prizes[j].category + "</td>";
 					laureatesInfo += "<td>" + matches[i].prizes[j].year + "</td>";
-					laureatesInfo += "<td><button onclick=\"additionalInfo(" + matches[i].id + ")\"><span class=\"fas fa-info-circle\"></span></button></td></tr>";
+					laureatesInfo += "<td><button id=\"info_button\" onclick=\"additionalInfo(" + matches[i].id + ")\"><span class=\"fas fa-info-circle\"></span></button></td></tr>";
 				}
     		}
 
@@ -509,6 +515,25 @@
 			}
 		}
 		
+		function showOrganizationsOnly(){
+			// Show organizations only
+			var maleList = document.getElementsByClassName("male");
+			var femaleList = document.getElementsByClassName("female");
+			var orgList = document.getElementsByClassName("org");
+						
+			for (var i = 0; i < maleList.length; i++){
+				maleList[i].style.display = "none";
+			}
+			
+			for (i = 0; i < femaleList.length; i++){
+				femaleList[i].style.display = "none";
+			}
+			
+			for (i = 0; i < orgList.length; i++){
+				orgList[i].style.display = "table-row";
+			}
+		}
+		
 		function showAllGenders(){
 			// Show all genders
 			var maleList = document.getElementsByClassName("male");
@@ -529,6 +554,8 @@
 		}
 		
 		function additionalInfo(laureate_id){
+			
+			// Get the data to display
 			additionalLaureateInfo = {}
 			console.log(matches)
 			for (var i = 0; i < matches.length; i++){
@@ -541,7 +568,69 @@
 			console.log(additionalLaureateInfo.died)
 			console.log(additionalLaureateInfo.bornCity)
 			
+			for (i = 0; i < additionalLaureateInfo.prizes.length; i++){
+				console.log(additionalLaureateInfo.prizes[i].motivation);
+			}
+			
+			// Display the modal
+			var modal = document.getElementById('info-modal');
+			modal.style.display = "block";
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+			
+			// Write the HTML
+			var modalContent = "<span id=\"close\">&times;</span>";
+			
+			if (additionalLaureateInfo.born != "0000-00-00"){
+				modalContent += "<p class=\"additional-info-heading\">Date of Birth</p>";
+				modalContent += "<p>" + additionalLaureateInfo.born + "</p>";
+			}
+			
+			if (additionalLaureateInfo.died != "0000-00-00"){
+				modalContent += "<p class=\"additional-info-heading\">Date of Death</p>";
+				modalContent += "<p>" + additionalLaureateInfo.died + "</p>";
+			}
+			
+			if (additionalLaureateInfo.bornCity){
+				modalContent += "<p class=\"additional-info-heading\">City of Birth</p>";
+				modalContent += "<p>" + additionalLaureateInfo.bornCity + "</p>";
+			}
+			
+			modalContent += "<p class=\"additional-info-heading\">Motivation</p>";
+			modalContent += "<p>" + additionalLaureateInfo.prizes[0].motivation + "</p>";
+			
+			// Display the HTML in the inner modal
+			document.getElementById("modal-content").innerHTML = modalContent;
+			
+			// When the user clicks on <span> (x), close the modal
+			span = document.getElementById("close");
+			
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
 		}
+		
+		function startYearDropdown(){
+			var html = "<option value=\"1901\" selected=\"selected\">1901</option>";
+			for (var i = 1902; i <= 2018; i++){
+				html += "<option value=\"" + i + "\">" + i + "</option>";
+			}
+			document.getElementById("startyear").innerHTML = html;
+		}
+		
+		function endYearDropdown(){
+			var html = "<option value=\"1901\">1901</option>";
+			for (var i = 1902; i < 2018; i++){
+				html += "<option value=\"" + i + "\">" + i + "</option>";
+			}
+			html += "<option value=\"2018\" selected=\"selected\">2018</option>";
+			document.getElementById("endyear").innerHTML = html;
+		} 
 				
     </script>
       
