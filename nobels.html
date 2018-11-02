@@ -32,6 +32,8 @@
 					<option value="economics">Economics</option>
 				</select><br>
 				Country of Birth:<br>
+				<!--Here, I wanted users to be able to search for modern country names.
+				I mapped the JSON's countryCode to its modern equivalent. As the JSON did not include the modern countries for each laureate, I had to do this separately. -->
 				<select id ="countries" name="countries">
 					<option value="all">-</option>
 					<option value="DZ">Algeria</option>
@@ -140,7 +142,7 @@
 			</form>
 		</div>
 		
-		<div id="laureatesTable"></div>
+		<div id="laureatesResults"></div>
 		
 		<!--https://www.w3schools.com/howto/howto_css_modals.asp -->
 		<div id="info-modal" class="modal"><div id="modal-content"></div></div>
@@ -268,7 +270,7 @@
     		
 
     		laureatesInfo += "</table>"
-    		document.getElementById("laureatesTable").innerHTML = laureatesInfo;
+    		document.getElementById("laureatesResults").innerHTML = laureatesInfo;
 			
         }
 		
@@ -279,15 +281,19 @@
 			var prizeCategory = document.getElementById("categories").value;
 			var countryCodeOfBirth = document.getElementById("countries").value;
 			
-			// Fetch the results
-			getLaureatesData(parsedObj, startyear, endyear, prizeCategory, countryCodeOfBirth);
-			
-			// Display the radio buttons
-			document.getElementById("genderButtons").style.display = "block";
-			
-			// Reset gender filter back to 'All'
-			document.getElementById("all").checked = true;
-		
+			if (startyear > endyear) {
+				laureatesInfo = "<h2 id=\"no-additional-info\">Start Year Date cannot exceed End Year. Please try again.</h2>"
+				document.getElementById("laureatesResults").innerHTML = laureatesInfo;
+			} else {
+				// Fetch the results
+				getLaureatesData(parsedObj, startyear, endyear, prizeCategory, countryCodeOfBirth);
+
+				// Display the radio buttons
+				document.getElementById("genderButtons").style.display = "block";
+
+				// Reset gender filter back to 'All'
+				document.getElementById("all").checked = true;
+				}
 		}
 		
 		function showMalesOnly(){
