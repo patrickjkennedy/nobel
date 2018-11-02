@@ -3,6 +3,7 @@
     <head>
       <meta charset="UTF-8">
       <link rel="stylesheet" href="css/styles.css">
+	  <!--Included Font Awesome for Info icon -->
 	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/solid.css" integrity="sha384-uKQOWcYZKOuKmpYpvT0xCFAs/wE157X5Ua3H5onoRAOCNkJAMX/6QF0iXGGQV9cP" crossorigin="anonymous">
 	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css" integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ" crossorigin="anonymous">
       <title>Nobel Laureate Internet Database</title>
@@ -192,6 +193,7 @@
 							match.died = laureatesArray[i].died;
 							match.bornCity = laureatesArray[i].bornCity;
 							match.prizeMotivation = laureatesArray[i].prizes[j].motivation;
+							match.affiliations = laureatesArray[i].prizes[j].affiliations;
 							matches.push(match);
 						}
 					}
@@ -209,6 +211,7 @@
 							match.died = laureatesArray[i].died;
 							match.bornCity = laureatesArray[i].bornCity;
 							match.prizeMotivation = laureatesArray[i].prizes[j].motivation;
+							match.affiliations = laureatesArray[i].prizes[j].affiliations;
 							matches.push(match);
 						}
 					}
@@ -226,6 +229,7 @@
 							match.died = laureatesArray[i].died;
 							match.bornCity = laureatesArray[i].bornCity;
 							match.prizeMotivation = laureatesArray[i].prizes[j].motivation;
+							match.affiliations = laureatesArray[i].prizes[j].affiliations;
 							matches.push(match);
 						} 
 					}
@@ -242,6 +246,7 @@
 						match.died = laureatesArray[i].died;
 						match.bornCity = laureatesArray[i].bornCity;
 						match.prizeMotivation = laureatesArray[i].prizes[j].motivation;
+						match.affiliations = laureatesArray[i].prizes[j].affiliations;
 						matches.push(match);
 					}
 				}
@@ -279,6 +284,9 @@
 			
 			// Display the radio buttons
 			document.getElementById("genderButtons").style.display = "block";
+			
+			// Reset gender filter back to 'All'
+			document.getElementById("all").checked = true;
 		
 		}
 		
@@ -382,23 +390,46 @@
 			// Write the HTML
 			var modalContent = "<span id=\"close\">&times;</span>";
 			
-			if (additionalLaureateInfo.born != "0000-00-00"){
-				modalContent += "<p class=\"additional-info-heading\">Year of Birth</p>";
-				modalContent += "<p>" + additionalLaureateInfo.born.substring(0, 4) + "</p>";
+			// If there is no additional information, display a message saying such in the modal.
+			if (additionalLaureateInfo.born == "0000-00-00" && additionalLaureateInfo.died == "0000-00-00" &&
+			   additionalLaureateInfo.bornCity == undefined && additionalLaureateInfo.prizeMotivation == undefined &&
+			   additionalLaureateInfo.affiliations[0].length == 0){
+				modalContent += "<h2 id=\"no-additional-info\">No Additional Information Available</h2>"
+			} 
+			else {
+				// Get the additional information if it's present and write it to modalContent
+				if (additionalLaureateInfo.born != "0000-00-00"){
+					modalContent += "<p class=\"additional-info-heading\">Year of Birth</p>";
+					modalContent += "<p>" + additionalLaureateInfo.born.substring(0, 4) + "</p>";
+				}
+
+				if (additionalLaureateInfo.died != "0000-00-00"){
+					modalContent += "<p class=\"additional-info-heading\">Year of Death</p>";
+					modalContent += "<p>" + additionalLaureateInfo.died.substring(0, 4) + "</p>";
+				}
+
+				if (additionalLaureateInfo.bornCity){
+					modalContent += "<p class=\"additional-info-heading\">City of Birth</p>";
+					modalContent += "<p>" + additionalLaureateInfo.bornCity + "</p>";
+				}
+
+				if (additionalLaureateInfo.prizeMotivation){
+					modalContent += "<p class=\"additional-info-heading\">Motivation</p>";
+					modalContent += "<p>" + additionalLaureateInfo.prizeMotivation + "</p>";
+				}
+
+				modalContent += "<p id=\"affiliations-heading\" class=\"additional-info-heading\">Affiliatons</p>";
+
+				for (i = 0; i < additionalLaureateInfo.affiliations.length; i++){
+					if (additionalLaureateInfo.affiliations[i].name && additionalLaureateInfo.affiliations[i].city
+					   && additionalLaureateInfo.affiliations[i].country){
+						modalContent += "<p>" + additionalLaureateInfo.affiliations[i].name + " | " + additionalLaureateInfo.affiliations[i].city + " | " + additionalLaureateInfo.affiliations[i].country + "</p>";
+					} else{
+						// Hide the heading
+						document.getElementById("affiliations-heading").style.display = "none";
+					}
+				}
 			}
-			
-			if (additionalLaureateInfo.died != "0000-00-00"){
-				modalContent += "<p class=\"additional-info-heading\">Year of Death</p>";
-				modalContent += "<p>" + additionalLaureateInfo.died.substring(0, 4) + "</p>";
-			}
-			
-			if (additionalLaureateInfo.bornCity){
-				modalContent += "<p class=\"additional-info-heading\">City of Birth</p>";
-				modalContent += "<p>" + additionalLaureateInfo.bornCity + "</p>";
-			}
-			
-			modalContent += "<p class=\"additional-info-heading\">Motivation</p>";
-			modalContent += "<p>" + additionalLaureateInfo.prizeMotivation + "</p>";
 			
 			// Display the HTML in the inner modal
 			document.getElementById("modal-content").innerHTML = modalContent;
