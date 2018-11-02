@@ -254,7 +254,7 @@
 				}
 			}
 									
-			var laureatesInfo = "<table>";
+			var laureatesInfo = "<table id=\"laureatesTable\">";
 			laureatesInfo += "<tr><th>Name</th><th>Category</th><th>Year of Award</th><th>Additional Info</th></tr>";
 						
 			for(var i = 0; i < matches.length; i++){
@@ -282,7 +282,7 @@
 			var countryCodeOfBirth = document.getElementById("countries").value;
 			
 			if (startyear > endyear) {
-				laureatesInfo = "<h2 id=\"no-additional-info\">Start Year Date cannot exceed End Year. Please try again.</h2>"
+				laureatesInfo = "<h2 id=\"no-additional-info\">Start Year cannot exceed End Year. Please try again.</h2>"
 				document.getElementById("laureatesResults").innerHTML = laureatesInfo;
 			} else {
 				// Fetch the results
@@ -397,9 +397,8 @@
 			var modalContent = "<span id=\"close\">&times;</span>";
 			
 			// If there is no additional information, display a message saying such in the modal.
-			if (additionalLaureateInfo.born == "0000-00-00" && additionalLaureateInfo.died == "0000-00-00" &&
-			   additionalLaureateInfo.bornCity == undefined && additionalLaureateInfo.prizeMotivation == undefined &&
-			   additionalLaureateInfo.affiliations[0].length == 0){
+			if ((additionalLaureateInfo.born == "0000-00-00" || additionalLaureateInfo.born == undefined) && (additionalLaureateInfo.died == "0000-00-00" || additionalLaureateInfo.born == undefined) &&
+			   additionalLaureateInfo.bornCity == undefined && additionalLaureateInfo.prizeMotivation == undefined && additionalLaureateInfo.affiliations[0].length == 0){
 				modalContent += "<h2 id=\"no-additional-info\">No Additional Information Available</h2>"
 			} 
 			else {
@@ -423,19 +422,14 @@
 					modalContent += "<p class=\"additional-info-heading\">Motivation</p>";
 					modalContent += "<p>" + additionalLaureateInfo.prizeMotivation + "</p>";
 				}
+				
+				if (additionalLaureateInfo.affiliations[0].length != 0){
+					modalContent += "<p id=\"affiliations-heading\" class=\"additional-info-heading\">Affiliatons</p>";
 
-				modalContent += "<p id=\"affiliations-heading\" class=\"additional-info-heading\">Affiliatons</p>";
-
-				for (i = 0; i < additionalLaureateInfo.affiliations.length; i++){
-					if (additionalLaureateInfo.affiliations[i].name && additionalLaureateInfo.affiliations[i].city
-					   && additionalLaureateInfo.affiliations[i].country){
+					for (i = 0; i < additionalLaureateInfo.affiliations.length; i++){
 						modalContent += "<p>" + additionalLaureateInfo.affiliations[i].name + " | " + additionalLaureateInfo.affiliations[i].city + " | " + additionalLaureateInfo.affiliations[i].country + "</p>";
-					} else{
-						// Hide the heading
-						document.getElementById("affiliations-heading").style.display = "none";
 					}
 				}
-			}
 			
 			// Display the HTML in the inner modal
 			document.getElementById("modal-content").innerHTML = modalContent;
@@ -446,6 +440,7 @@
 			span.onclick = function() {
 				modal.style.display = "none";
 			}
+		    }
 		}
 		
 		function startYearDropdown(){
