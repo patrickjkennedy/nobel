@@ -13,6 +13,8 @@
 		
 		<h1>Nobel Laureate Internet Database</h1>
 		
+		<p>Welcome to the Nobel Laureate Internet Database! You can search for Nobel Prize winners below. Please stay a while and learn more about the winners of this most prestigious prize.</p>
+		
 		<h2>Please enter your search criteria below</h2>
 		
 		<form onsubmit="return false">
@@ -441,7 +443,7 @@
 					modal.style.display = "none";
 				}
 				
-				// Add an event listener so pressong escape key closes the modal
+				// Add an event listener so pressing escape key closes the modal (adapted from https://stackoverflow.com/questions/51293224/close-modal-on-esc-press-pure-js)
 				document.addEventListener('keydown', function(e) {
 					var keyCode = e.keyCode;
 					if (keyCode === 27) {
