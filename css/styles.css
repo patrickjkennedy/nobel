@@ -1,16 +1,6 @@
-:root {
- 	--main-bg-color: #FEF5EF;
-  	--off-white: #fff;
-  	--text-color: #141414;
-  	--tuscan-gold: #F1D9A7;
-  	--khaki: #C6B89E;
-  	--grain-yellow: #F4D35E;
-  	--tuscan-red: #764248;
-}
-
 body {
-  	background-color: var(--main-bg-color); 
-  	color: var(--text-color); 
+  	background-color: #FEF5EF;
+  	color: #141414;
   	font-family: 'Open Sans', sans-serif;
   	margin-left: 50px;
   	margin-right: 50px;
@@ -28,7 +18,7 @@ h1, h2 {
 }
 
 #banner {
-	color: var(--off-white);
+	color: #FFF;
 	text-align: center;
 	/* Used w3 schools tutorial to darken image https://www.w3schools.com/howto/howto_css_hero_image.asp*/
 	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/nobel.jpg");
@@ -51,14 +41,13 @@ input[type=text], select {
 }
 
 input[type=text], label {
-    color: var(--tuscan-red);
+    color: #764248;
 	font-weight: bolder
 }
 
 input[type=submit] {
-    width: 50;
-    background-color: var(--tuscan-red);
-    color: var(--main-bg-color);
+    background-color: #764248;
+    color: #FEF5EF;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
@@ -69,15 +58,15 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: var(--grain-yellow);
-	color: var(--tuscan-red);
+    background-color: #F4D35E;
+	color: #764248;
 }
 
 /* Adapted from w3schools sample here https://www.w3schools.com/css/tryit.asp?filename=trycss_forms (end) */
 
 footer {
-  	background-color: var(--tuscan-red);
-  	color: var(--main-bg-color);
+  	background-color: #764248;
+  	color: #FEF5EF;
   	padding: 20px;
   	text-align: center;
 }
@@ -99,7 +88,7 @@ footer {
 }
 
 #laureatesTable tr {
-	background-color: var(--off-white);
+	background-color: #FFF;
 }
 
 #laureatesTable tr:hover {
@@ -110,14 +99,14 @@ footer {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: var(--tuscan-red);
-    color: var(--main-bg-color);
+    background-color: #764248;
+    color: #FEF5EF;
 }
 
 #info_button {
 	width: 100%;
 	height: 25px;
-	color: var(--tuscan-red);
+	color: #764248;
 }
 
 /* Adapted from sample here https://www.w3schools.com/css/tryit.asp?filename=trycss_table_fancy (end) */
@@ -165,7 +154,7 @@ footer {
 /* https://www.w3schools.com/howto/howto_css_modals.asp CSS modal (end) */
 
 .additional-info-heading {
-	color: var(--tuscan-red);
+	color: #764248;
 	font-size: 18px;
 	font-weight: 500;
 	text-align: left;
@@ -184,8 +173,8 @@ footer {
     z-index: 99; /* Make sure it does not overlap */
     border: none; /* Remove borders */
     outline: none; /* Remove outline */
-    background-color: var(--tuscan-red); /* Set a background color */
-    color: var(--main-bg-color); /* Text color */
+    background-color: #764248; /* Set a background color */
+    color: #FEF5EF; /* Text color */
     cursor: pointer; /* Add a mouse pointer on hover */
     padding: 15px; /* Some padding */
     border-radius: 10px; /* Rounded corners */
@@ -194,7 +183,7 @@ footer {
 
 #top-button:hover {
 	/* I want it to look the same as the Submit button*/
-    background-color: var(--grain-yellow);
-	color: var(--tuscan-red);
+    background-color: #F4D35E;
+	color: #764248;
 }
 /* https://www.w3schools.com/howto/howto_js_scroll_to_top.asp (end)*/

@@ -14,15 +14,17 @@
   
     <body>
 		<div id="banner">
+			<!-- This div covers introductory text and a banner image-->
 			<h1>The Nobel Prize Internet Database</h1>
 
-			<p>Welcome to The Nobel Prize Internet Database! You can search for recipients below. Please stay a while and learn more about the winners of the world's most prestigious prize.</p>
+			<p>Welcome to The Nobel Prize Internet Database. You can search for recipients below. Please stay a while and learn more about the winners of the world's most prestigious prize.</p>
 			
 			<h2>Please enter your search criteria below</h2>
 		</div>
 		
 		<div id="search-form">
 			<form onsubmit="return false">
+				<!-- This form contains all of the search criteria we will use later--->
 					<label for="startyear">Start Year:</label>
 				    <select id="startyear"></select>
 					<label for="endyear">End Year:</label>
@@ -277,7 +279,9 @@
 			
 			// Sort the matches by year ascending
 			matches.sort(dynamicSort("prizeYear"));
-									
+			
+			
+			// Build up the response html						
 			var laureatesInfo = "<table id=\"laureatesTable\">";
 			laureatesInfo += "<tr><th>Name</th><th>Category</th><th>Year of Award</th><th>Additional Info</th></tr>";
 						
@@ -294,6 +298,8 @@
     		
 
     		laureatesInfo += "</table>"
+			
+			// Write the html to the page
     		document.getElementById("laureatesResults").innerHTML = laureatesInfo;
 			
         }
@@ -305,6 +311,8 @@
 			var prizeCategory = document.getElementById("categories").value;
 			var countryCodeOfBirth = document.getElementById("countries").value;
 			
+			
+			// Error message for when users attempt to enter a start year greater than the end year
 			if (startyear > endyear) {
 				laureatesInfo = "<h2 id=\"no-additional-info\">Start Year cannot exceed End Year. Please try again.</h2>"
 				document.getElementById("laureatesResults").innerHTML = laureatesInfo;
@@ -416,7 +424,7 @@
 					modal.style.display = "none";
 				}
 			}
-			console.log(additionalLaureateInfo);
+
 			// Write the HTML
 			var modalContent = "<span id=\"close\">&times;</span>";
 			
