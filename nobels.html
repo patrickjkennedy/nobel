@@ -1,122 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <link rel="stylesheet" href="css/styles.css">
-	  <!--Included Font Awesome for Info icon -->
-	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/solid.css" integrity="sha384-uKQOWcYZKOuKmpYpvT0xCFAs/wE157X5Ua3H5onoRAOCNkJAMX/6QF0iXGGQV9cP" crossorigin="anonymous">
-	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css" integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ" crossorigin="anonymous">
-      <title>Nobel Laureate Internet Database</title>
+	<head>
+      	<meta charset="UTF-8">
+      	<link rel="stylesheet" href="css/styles.css">
+	  	<!--Included Font Awesome for Info icon -->
+	  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/solid.css" integrity="sha384-uKQOWcYZKOuKmpYpvT0xCFAs/wE157X5Ua3H5onoRAOCNkJAMX/6QF0iXGGQV9cP" crossorigin="anonymous">
+	  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/fontawesome.css" integrity="sha384-HU5rcgG/yUrsDGWsVACclYdzdCcn5yU8V/3V84zSrPDHwZEdjykadlgI6RHrxGrJ" crossorigin="anonymous">
+		<!-- Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet">
+		<title>The Nobel Prize Internet Database</title>
     </head>
   
     <body>
+		<div id="banner">
+			<h1>The Nobel Prize Internet Database</h1>
+
+			<p>Welcome to The Nobel Prize Internet Database! You can search for recipients below. Please stay a while and learn more about the winners of the world's most prestigious prize.</p>
+			
+			<h2>Please enter your search criteria below</h2>
+		</div>
 		
-		<h1>Nobel Laureate Internet Database</h1>
-		
-		<p>Welcome to the Nobel Laureate Internet Database! You can search for Nobel Prize winners below. Please stay a while and learn more about the winners of this most prestigious prize.</p>
-		
-		<h2>Please enter your search criteria below</h2>
-		
-		<form onsubmit="return false">
-			<fieldset>
-				<legend>Search Criteria</legend>
-    			Start Year:<br>
-    			<select id="startyear"></select><br>
-    			End Year:<br>
-    			<select id="endyear"></select><br>
-				Categories:<br>
-				<select id ="categories" name="categories">
-					<option value="all">-</option>
-					<option value="physics">Physics</option>
-					<option value="chemistry">Chemistry</option>
-					<option value="medicine">Medicine</option>
-					<option value="peace">Peace</option>
-					<option value="economics">Economics</option>
-				</select><br>
-				Country of Birth:<br>
-				<!--Here, I wanted users to be able to search for modern country names.
-				I mapped the JSON's countryCode to its modern equivalent. As the JSON did not include the modern countries for each laureate, I had to do this separately. -->
-				<select id ="countries" name="countries">
-					<option value="all">-</option>
-					<option value="DZ">Algeria</option>
-					<option value="AR">Argentina</option>
-					<option value="AU">Australia</option>
-					<option value="AT">Austria</option>
-					<option value="AZ">Azerbaijan</option>
-					<option value="BD">Bangladesh</option>
-					<option value="BY">Belarus</option>
-					<option value="BE">Belgium</option>
-					<option value="BA">Bosnia and Herzegovina</option>
-					<option value="BR">Brazil</option>
-					<option value="BG">Bulgaria</option>
-					<option value="CA">Canada</option>
-					<option value="CL">Chile</option>
-					<option value="CN">China</option>
-					<option value="CO">Colombia</option>
-					<option value="CR">Costa Rica</option>
-					<option value="HR">Croatia</option>
-					<option value="CY">Cyprus</option>
-					<option value="CZ">Czech Republic</option>
-					<option value="DK">Denmark</option>
-					<option value="TL">East Timor</option>
-					<option value="EG">Egypt</option>
-					<option value="FI">Finland</option>
-					<option value="FR">France</option>
-					<option value="DE">Germany</option>
-					<option value="GH">Ghana</option>
-					<option value="GR">Greece</option>
-					<option value="GP">Guadeloupe Island</option>
-					<option value="GT">Guatemala</option>
-					<option value="HU">Hungary</option>
-					<option value="IS">Iceland</option>
-					<option value="IN">India</option>
-					<option value="ID">Indonesia</option>
-					<option value="IR">Iran</option>
-					<option value="IE">Ireland</option>
-					<option value="IL">Israel</option>
-					<option value="IT">Italy</option>
-					<option value="JP">Japan</option>
-					<option value="KE">Kenya</option>
-					<option value="LV">Latvia</option>
-					<option value="LR">Liberia</option>
-					<option value="LT">Lithuania</option>
-					<option value="LU">Luxembourg</option>
-					<option value="MK">Macedonia</option>
-					<option value="MG">Madagascar</option>
-					<option value="MX">Mexico</option>
-					<option value="MA">Morocco</option>
-					<option value="MM">Myanmar</option>
-					<option value="NZ">New Zealand</option>
-					<option value="NG">Nigeria</option>
-					<option value="NO">Norway</option>
-					<option value="PK">Pakistan</option>
-					<option value="PE">Peru</option>
-					<option value="PL">Poland</option>
-					<option value="PT">Portugal</option>
-					<option value="RO">Romania</option>
-					<option value="RU">Russia</option>
-					<option value="LC">Saint Lucia</option>
-					<option value="SK">Slovakia</option>
-					<option value="SI">Slovenia</option>
-					<option value="ZA">South Africa</option>
-					<option value="KR">South Korea</option>
-					<option value="ES">Spain</option>
-					<option value="SE">Sweden</option>
-					<option value="CH">Switzerland</option>
-					<option value="TW">Taiwan</option>
-					<option value="NL">the Netherlands</option>
-					<option value="TR">Turkey</option>
-					<option value="UA">Ukraine</option>
-					<option value="GB">United Kingdom</option>
-					<option value="US">USA</option>
-					<option value="VE">Venezuela</option>
-					<option value="VN">Vietnam</option>
-					<option value="YE">Yemen</option>
-					<option value="ZW">Zimbabwe</option>
-				</select><br>
-    			<input type="submit" value="Submit" onclick="displayResults()">
-			</fieldset>
-  		</form>
+		<div id="search-form">
+			<form onsubmit="return false">
+					Start Year:<br>
+					<select id="startyear"></select><br>
+					End Year:<br>
+					<select id="endyear"></select><br>
+					Categories:<br>
+					<select id ="categories" name="categories">
+						<option value="all">-</option>
+						<option value="physics">Physics</option>
+						<option value="chemistry">Chemistry</option>
+						<option value="medicine">Medicine</option>
+						<option value="peace">Peace</option>
+						<option value="economics">Economics</option>
+					</select><br>
+					Country of Birth:<br>
+					<!--Here, I wanted users to be able to search for modern country names.
+					I mapped the JSON's countryCode to its modern equivalent. As the JSON did not include the modern country equivalents for each laureate, I had to do this via a script and manually add the names. -->
+					<select id ="countries" name="countries">
+						<option value="all">-</option>
+						<option value="DZ">Algeria</option>
+						<option value="AR">Argentina</option>
+						<option value="AU">Australia</option>
+						<option value="AT">Austria</option>
+						<option value="AZ">Azerbaijan</option>
+						<option value="BD">Bangladesh</option>
+						<option value="BY">Belarus</option>
+						<option value="BE">Belgium</option>
+						<option value="BA">Bosnia and Herzegovina</option>
+						<option value="BR">Brazil</option>
+						<option value="BG">Bulgaria</option>
+						<option value="CA">Canada</option>
+						<option value="CL">Chile</option>
+						<option value="CN">China</option>
+						<option value="CO">Colombia</option>
+						<option value="CR">Costa Rica</option>
+						<option value="HR">Croatia</option>
+						<option value="CY">Cyprus</option>
+						<option value="CZ">Czech Republic</option>
+						<option value="DK">Denmark</option>
+						<option value="TL">East Timor</option>
+						<option value="EG">Egypt</option>
+						<option value="FI">Finland</option>
+						<option value="FR">France</option>
+						<option value="DE">Germany</option>
+						<option value="GH">Ghana</option>
+						<option value="GR">Greece</option>
+						<option value="GP">Guadeloupe Island</option>
+						<option value="GT">Guatemala</option>
+						<option value="HU">Hungary</option>
+						<option value="IS">Iceland</option>
+						<option value="IN">India</option>
+						<option value="ID">Indonesia</option>
+						<option value="IR">Iran</option>
+						<option value="IE">Ireland</option>
+						<option value="IL">Israel</option>
+						<option value="IT">Italy</option>
+						<option value="JP">Japan</option>
+						<option value="KE">Kenya</option>
+						<option value="LV">Latvia</option>
+						<option value="LR">Liberia</option>
+						<option value="LT">Lithuania</option>
+						<option value="LU">Luxembourg</option>
+						<option value="MK">Macedonia</option>
+						<option value="MG">Madagascar</option>
+						<option value="MX">Mexico</option>
+						<option value="MA">Morocco</option>
+						<option value="MM">Myanmar</option>
+						<option value="NL">Netherlands</option>
+						<option value="NZ">New Zealand</option>
+						<option value="NG">Nigeria</option>
+						<option value="NO">Norway</option>
+						<option value="PK">Pakistan</option>
+						<option value="PE">Peru</option>
+						<option value="PL">Poland</option>
+						<option value="PT">Portugal</option>
+						<option value="RO">Romania</option>
+						<option value="RU">Russia</option>
+						<option value="LC">Saint Lucia</option>
+						<option value="SK">Slovakia</option>
+						<option value="SI">Slovenia</option>
+						<option value="ZA">South Africa</option>
+						<option value="KR">South Korea</option>
+						<option value="ES">Spain</option>
+						<option value="SE">Sweden</option>
+						<option value="CH">Switzerland</option>
+						<option value="TW">Taiwan</option>
+						<option value="TR">Turkey</option>
+						<option value="UA">Ukraine</option>
+						<option value="GB">United Kingdom</option>
+						<option value="US">USA</option>
+						<option value="VE">Venezuela</option>
+						<option value="VN">Vietnam</option>
+						<option value="YE">Yemen</option>
+						<option value="ZW">Zimbabwe</option>
+					</select><br>
+					<input type="submit" value="Submit" onclick="displayResults()">
+			</form>
+		</div>
 		
 		<div id="genderButtons">
 			<form>
@@ -150,7 +153,7 @@
 		<div id="info-modal" class="modal"><div id="modal-content"></div></div>
       
         <footer> 
-          <p>Made with <span aria-hidden="true">&hearts;</span> by Patrick Kennedy for UCD H.Dip Computer Science Web Application Development Assignment 2</p>
+          <p>Made with &hearts; by Patrick Kennedy for UCD H.Dip Computer Science Web Application Development Assignment 2</p>
         </footer>
     
     <script>

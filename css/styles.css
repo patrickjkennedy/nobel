@@ -1,41 +1,53 @@
 :root {
-  --main-bg-color: #FEF5EF;
-  --off-white: #fff;
-  --text-color: #141414;
-  --tuscan-gold: #F1D9A7;
-  --khaki: #C6B89E;
-  --grain-yellow: #F4D35E;
-  --tuscan-red: #764248;
+ 	--main-bg-color: #FEF5EF;
+  	--off-white: #fff;
+  	--text-color: #141414;
+  	--tuscan-gold: #F1D9A7;
+  	--khaki: #C6B89E;
+  	--grain-yellow: #F4D35E;
+  	--tuscan-red: #764248;
 }
 
 body {
-  background-color: var(--main-bg-color); 
-  color: var(--text-color); 
-  font-family: sans-serif;
-  margin-left: 50px;
-  margin-right: 50px;
-  height: 100%;
-  min-height: 100%;
+  	background-color: var(--main-bg-color); 
+  	color: var(--text-color); 
+  	font-family: 'Open Sans', sans-serif;
+  	margin-left: 50px;
+  	margin-right: 50px;
+  	height: 100%;
+  	min-height: 100%;
 }
 
 p {
-  text-align: center;
+  	text-align: center;
 }
 
-h1 {
-  font-size: 50px;
-  color: var(--tuscan-red); 
+h1, h2 {
+	font-family: 'Scope One', serif;
+	font-weight: lighter;
 }
 
-h2 {
-  color: var(--tuscan-red); 
+#banner {
+	color: var(--off-white);
+	text-align: center;
+	/* Used w3 schools tutorial to darken image https://www.w3schools.com/howto/howto_css_hero_image.asp*/
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/nobel.jpg");
+	background-size: cover;
+	width: auto;
+	height: 300px;
+	padding-top:100px
+}
+
+#search-form {
+	text-align: center;
+	padding: 25px;
 }
 
 footer {
-  background-color: var(--tuscan-red);
-  color: var(--main-bg-color);
-  padding: 20px;
-  text-align: center;
+  	background-color: var(--tuscan-red);
+  	color: var(--main-bg-color);
+  	padding: 20px;
+  	text-align: center;
 }
 
 #genderButtons {
@@ -54,7 +66,7 @@ footer {
     padding: 8px;
 }
 
-#laureatesTable tr:nth-child(even){
+#laureatesTable tr {
 	background-color: var(--off-white);
 }
 
