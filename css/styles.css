@@ -35,13 +35,45 @@ h1, h2 {
 	background-size: cover;
 	width: auto;
 	height: 300px;
-	padding-top:100px
+	padding-top:100px;
 }
 
 #search-form {
 	text-align: center;
 	padding: 25px;
 }
+
+/* Adapted from w3schools sample here https://www.w3schools.com/css/tryit.asp?filename=trycss_forms (start) */
+
+input[type=text], select {
+    margin: 8px 0;
+	margin-right: 75px
+}
+
+input[type=text], label {
+    color: var(--tuscan-red);
+	font-weight: bolder
+}
+
+input[type=submit] {
+    width: 50;
+    background-color: var(--tuscan-red);
+    color: var(--main-bg-color);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+	margin-left: 25px;
+	font-weight: bolder
+}
+
+input[type=submit]:hover {
+    background-color: var(--grain-yellow);
+	color: var(--tuscan-red);
+}
+
+/* Adapted from w3schools sample here https://www.w3schools.com/css/tryit.asp?filename=trycss_forms (end) */
 
 footer {
   	background-color: var(--tuscan-red);
@@ -54,7 +86,7 @@ footer {
 	display: none;
 }
 
-/* Adapted from sample here https://www.w3schools.com/css/tryit.asp?filename=trycss_table_fancy */
+/* Adapted from sample here https://www.w3schools.com/css/tryit.asp?filename=trycss_table_fancy (start) */
 
 #laureatesTable {
 	width: 100%;
@@ -88,7 +120,9 @@ footer {
 	color: var(--tuscan-red);
 }
 
-/* https://www.w3schools.com/howto/howto_css_modals.asp CSS modal start*/
+/* Adapted from sample here https://www.w3schools.com/css/tryit.asp?filename=trycss_table_fancy (end) */
+
+/* https://www.w3schools.com/howto/howto_css_modals.asp CSS modal (start)*/
 
 /* The Modal (background) */
 .modal {
@@ -128,7 +162,7 @@ footer {
     cursor: pointer;
 }
 
-/* https://www.w3schools.com/howto/howto_css_modals.asp CSS modal finish */
+/* https://www.w3schools.com/howto/howto_css_modals.asp CSS modal (end) */
 
 .additional-info-heading {
 	color: var(--tuscan-red);

@@ -23,20 +23,19 @@
 		
 		<div id="search-form">
 			<form onsubmit="return false">
-					Start Year:<br>
-					<select id="startyear"></select><br>
-					End Year:<br>
-					<select id="endyear"></select><br>
-					Categories:<br>
+					<label for="startyear">Start Year:</label>
+				    <select id="startyear"></select>
+					<label for="endyear">End Year:</label>
+					<select id="endyear"></select>
+					<label for="categories">Categories:</label>
 					<select id ="categories" name="categories">
 						<option value="all">-</option>
 						<option value="physics">Physics</option>
 						<option value="chemistry">Chemistry</option>
 						<option value="medicine">Medicine</option>
 						<option value="peace">Peace</option>
-						<option value="economics">Economics</option>
-					</select><br>
-					Country of Birth:<br>
+						<option value="economics">Economics</option></select>
+					<label for="countries">Country of Birth:</label>
 					<!--Here, I wanted users to be able to search for modern country names.
 					I mapped the JSON's countryCode to its modern equivalent. As the JSON did not include the modern country equivalents for each laureate, I had to do this via a script and manually add the names. -->
 					<select id ="countries" name="countries">
@@ -115,8 +114,7 @@
 						<option value="VE">Venezuela</option>
 						<option value="VN">Vietnam</option>
 						<option value="YE">Yemen</option>
-						<option value="ZW">Zimbabwe</option>
-					</select><br>
+						<option value="ZW">Zimbabwe</option></select>
 					<input type="submit" value="Submit" onclick="displayResults()">
 			</form>
 		</div>
@@ -397,13 +395,16 @@
 					modal.style.display = "none";
 				}
 			}
-			
+			console.log(additionalLaureateInfo);
 			// Write the HTML
 			var modalContent = "<span id=\"close\">&times;</span>";
 			
 			// If there is no additional information, display a message saying such in the modal.
-			if ((additionalLaureateInfo.born == "0000-00-00" || additionalLaureateInfo.born == undefined) && (additionalLaureateInfo.died == "0000-00-00" || additionalLaureateInfo.born == undefined) &&
-			   additionalLaureateInfo.bornCity == undefined && additionalLaureateInfo.prizeMotivation == undefined && additionalLaureateInfo.affiliations[0].length == 0){
+			if ((additionalLaureateInfo.born == "0000-00-00" || additionalLaureateInfo.born == undefined) && 
+				(additionalLaureateInfo.died == "0000-00-00" || additionalLaureateInfo.died == undefined) && 
+				additionalLaureateInfo.bornCity == undefined && 
+				additionalLaureateInfo.prizeMotivation == undefined && 
+				additionalLaureateInfo.affiliations[0].length == 0){
 				modalContent += "<h2 id=\"no-additional-info\">No Additional Information Available</h2>"
 			} 
 			else {
@@ -435,25 +436,26 @@
 						modalContent += "<p>" + additionalLaureateInfo.affiliations[i].name + " | " + additionalLaureateInfo.affiliations[i].city + " | " + additionalLaureateInfo.affiliations[i].country + "</p>";
 					}
 				}
-			
-				// Display the HTML in the inner modal
-				document.getElementById("modal-content").innerHTML = modalContent;
+			}
+							
+			// Display the HTML in the inner modal
+			document.getElementById("modal-content").innerHTML = modalContent;
 
-				// When the user clicks on <span> (x), close the modal
-				span = document.getElementById("close");
+			// When the user clicks on <span> (x), close the modal
+			span = document.getElementById("close");
 
-				span.onclick = function() {
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+
+			// Add an event listener so pressing escape key closes the modal (adapted from https://stackoverflow.com/questions/51293224/close-modal-on-esc-press-pure-js)
+			document.addEventListener('keydown', function(e) {
+				var keyCode = e.keyCode;
+				if (keyCode === 27) {
 					modal.style.display = "none";
 				}
-				
-				// Add an event listener so pressing escape key closes the modal (adapted from https://stackoverflow.com/questions/51293224/close-modal-on-esc-press-pure-js)
-				document.addEventListener('keydown', function(e) {
-					var keyCode = e.keyCode;
-					if (keyCode === 27) {
-						modal.style.display = "none";
-					}
-				});
-		    }
+			});
+		   
 		}
 		
 		function startYearDropdown(){
